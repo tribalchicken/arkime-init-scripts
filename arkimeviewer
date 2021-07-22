@@ -1,0 +1,19 @@
+#!/bin/sh
+
+. /etc/rc.subr
+
+arkime_install_dir="/opt/arkime"
+name=arkimeviewer
+rcvar=`set_rcvar`
+command="/usr/sbin/daemon"
+pidfile="/var/run/${name}.pid"
+arkimeviewer_chdir="/opt/arkime/viewer"
+task="/usr/local/bin/node ${arkime_install_dir}/viewer/viewer.js -c ${arkime_install_dir}/etc/config.ini ${OPTIONS} >> /
+
+#task="/usr/local/bin/testloop"
+procname="/usr/local/bin/node"
+
+command_args="-p ${pidfile} ${task}"
+
+load_rc_config $name
+run_rc_command "$1"

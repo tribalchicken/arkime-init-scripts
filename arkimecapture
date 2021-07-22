@@ -1,0 +1,18 @@
+#!/bin/sh
+
+. /etc/rc.subr
+
+arkime_install_dir="/opt/arkime"
+name=arkimecapture
+rcvar=`set_rcvar`
+command="/usr/sbin/daemon"
+pidfile="/var/run/${name}.pid"
+task="${arkime_install_dir}/bin/capture -c ${arkime_install_dir}/etc/config.ini >> ${arkime_install_dir}/logs/capture.log 2>&1"
+
+#task="/usr/local/bin/testloop"
+procname="${arkime_install_dir}/bin/capture"
+
+command_args="-p ${pidfile} ${task}"
+
+load_rc_config $name
+run_rc_command "$1"
